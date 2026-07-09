@@ -1,54 +1,94 @@
-// カタカナをひらがなに変換
+// ==========================
+// カタカナ→ひらがな
+// ==========================
 function toHiragana(str) {
-    return str.replace(/[\u30A1-\u30F6]/g, function(ch) {
-        return String.fromCharCode(ch.charCodeAt(0) - 0x60);
+
+    return str.replace(/[\u30A1-\u30F6]/g, function(ch){
+
+        return String.fromCharCode(ch.charCodeAt(0)-0x60);
+
     });
+
 }
 
-// ===== データ =====
+// ==========================
+// データ
+// ==========================
+
 let allData = [];
 let allShops = [];
 let favorites = [];
 
-// ===== 初期読み込み =====
-window.onload = async function () {
+// ==========================
+// 初期読み込み
+// ==========================
 
+window.onload = async function(){
+
+    document.getElementById("login").style.display="block";
+    document.getElementById("app").style.display="none";
+
+    // JSON読み込み
     const res = await fetch("data.json");
+
     const rawData = await res.json();
 
     allShops = rawData;
+
     allData = flattenData(rawData);
 
+    // 初期表示
     render(allData);
 
+    // ボタン
     document.getElementById("searchBtn").onclick = search;
+
     document.getElementById("resetBtn").onclick = reset;
 
+    // リアルタイム検索
     setupLiveSearch();
 
+    // モーダル
     document.getElementById("closeModal").onclick = closeModal;
 
-    document.getElementById("modal").onclick = function (e) {
-        if (e.target.id === "modal") closeModal();
+    document.getElementById("modal").onclick = function(e){
+
+        if(e.target.id==="modal"){
+
+            closeModal();
+
+        }
+
     };
+
 };
 
-// ===== フラット化 =====
-function flattenData(data) {
+// ==========================
+// JSON展開
+// ==========================
 
-    let result = [];
+function flattenData(data){
 
-    data.forEach(shop => {
+    let result=[];
 
-        shop.menus.forEach(menu => {
+    data.forEach(shop=>{
+
+        shop.menus.forEach(menu=>{
 
             result.push({
-                shopId: shop.id,
-                shopName: shop.name,
-                area: shop.area, //配列になる
-                menuName: menu.name,
-                price: menu.price,
-                priceText: menu.priceText
+
+                shopId:shop.id,
+
+                shopName:shop.name,
+
+                area:shop.area,
+
+                menuName:menu.name,
+
+                price:menu.price,
+
+                priceText:menu.priceText
+
             });
 
         });
@@ -56,148 +96,369 @@ function flattenData(data) {
     });
 
     return result;
+
 }
 
-// ===== 検索 =====
-function search() {
+// ==========================
+// 検索
+// ==========================
+
+function search(){
 
     let keyword = toHiragana(
-        document.getElementById("keyword").value.trim());
-    let minPrice = document.getElementById("minPrice").value;
-    let maxPrice = document.getElementById("maxPrice").value;
-    let sort = document.getElementById("sort").value;
 
-    let areas = [];
-    document.querySelectorAll(".sidebar input[type=checkbox]").forEach(cb => {
-        if (cb.checked) areas.push(cb.value);
-    });
+        document.getElementById("keyword").value.trim()
 
-    let keywords = keyword.split(" ").filter(k => k !== "");
+    );
 
-    let result = allData.filter(item => {
+    let minPrice =
+        document.getElementById("minPrice").value;
 
-        let matchKeyword = true;
+    let maxPrice =
+        document.getElementById("maxPrice").value;
 
-        if (keywords.length > 0) {
-            matchKeyword = keywords.every(k =>
-                toHiragana(item.shopName).includes(k) ||
-                toHiragana(item.menuName).includes(k)
-            );
+    let sort =
+        document.getElementById("sort").value;
+
+    // エリア取得
+    let areas=[];
+
+    document.querySelectorAll(
+        ".sidebar input[type=checkbox]"
+    ).forEach(cb=>{
+
+        if(cb.checked){
+
+            areas.push(cb.value);
+
         }
 
-        let matchArea =
-            areas.length === 0 || areas.some(a => item.area.includes(a));
-
-        let matchPrice =
-            (!minPrice || item.price >= Number(minPrice)) &&
-            (!maxPrice || item.price <= Number(maxPrice));
-
-        return matchKeyword && matchArea && matchPrice;
     });
 
-    if (sort === "low") {
-        result.sort((a, b) => a.price - b.price);
-    } else if (sort === "high") {
-        result.sort((a, b) => b.price - a.price);
-    } else {
-        result.sort((a, b) => Math.abs(a.price - 800) - Math.abs(b.price - 800));
+    let keywords =
+        keyword.split(" ").filter(k=>k!="");
+
+    let result = allData.filter(item=>{
+
+        // キーワード
+        let matchKeyword=true;
+
+        if(keywords.length>0){
+
+            matchKeyword=keywords.every(k=>
+
+                toHiragana(item.shopName).includes(k) ||
+
+                toHiragana(item.menuName).includes(k)
+
+            );
+
+        }
+
+        // エリア
+        let matchArea=
+
+            areas.length===0 ||
+
+            areas.some(a=>item.area.includes(a));
+
+        // 価格
+        let matchPrice=
+
+            (!minPrice ||
+
+            item.price>=Number(minPrice))
+
+            &&
+
+            (!maxPrice ||
+
+            item.price<=Number(maxPrice));
+
+        return(
+
+            matchKeyword &&
+
+            matchArea &&
+
+            matchPrice
+
+        );
+
+    });
+
+    // 並び替え
+    if(sort==="low"){
+
+        result.sort((a,b)=>a.price-b.price);
+
+    }
+
+    else if(sort==="high"){
+
+        result.sort((a,b)=>b.price-a.price);
+
+    }
+
+    else{
+
+        result.sort(
+
+            (a,b)=>
+
+            Math.abs(a.price-800)
+
+            -
+
+            Math.abs(b.price-800)
+
+        );
+
     }
 
     render(result);
+
 }
 
-// ===== 表示 =====
-function render(data) {
+// ==========================
+// 検索結果表示
+// ==========================
 
-    let content = document.querySelector(".content");
-    content.innerHTML = "";
+function render(data){
 
-    if (data.length === 0) {
-        content.innerHTML = `<div class="card"><h3>該当なし</h3></div>`;
+    const content =
+        document.querySelector(".content");
+
+    content.innerHTML="";
+
+    if(data.length===0){
+
+        content.innerHTML=`
+
+            <div class="card">
+
+                <h3>該当する店舗がありません</h3>
+
+            </div>
+
+        `;
+
         return;
+
     }
 
-    data.forEach(item => {
+    data.forEach(item=>{
 
-        content.innerHTML += `
-            <div class="card" onclick="openModal(${item.shopId})">
-                <h3>${item.shopName}</h3>
-                <p>🍴 ${item.menuName}</p>
-                <p class="price">💴 ${item.priceText ?? item.price + "円"}</p>
-                <p>📍 ${item.area}</p>
-            </div>
+        content.innerHTML+=`
+
+        <div
+            class="card"
+            onclick="openModal(${item.shopId})">
+
+            <h3>${item.shopName}</h3>
+
+            <p>
+
+                🍴 ${item.menuName}
+
+            </p>
+
+            <p class="price">
+
+                💴 ${item.priceText ?? item.price+"円"}
+
+            </p>
+
+            <p>
+
+                📍 ${item.area}
+
+            </p>
+
+        </div>
+
         `;
-    });
-}
 
-// ===== モーダル =====
-function openModal(shopId) {
-
-    let shop = allShops.find(s => s.id === shopId);
-
-    document.getElementById("modalShopName").innerText = shop.name;
-    document.getElementById("modalArea").innerText = "📍 " + shop.area;
-
-    let html = "";
-
-    shop.menus.forEach(m => {
-        html += `<p>🍴 ${m.name}：💴 ${m.price}円</p>`;
     });
 
-    document.getElementById("modalMenus").innerHTML = html;
-
-    document.getElementById("modal").classList.remove("hidden");
 }
 
-function closeModal() {
-    document.getElementById("modal").classList.add("hidden");
-}
+// ==========================
+// モーダル表示
+// ==========================
 
-// ===== リアルタイム検索 =====
-function setupLiveSearch() {
+function openModal(shopId){
 
-    document.getElementById("keyword").addEventListener("input", search);
-    document.getElementById("minPrice").addEventListener("input", search);
-    document.getElementById("maxPrice").addEventListener("input", search);
+    const shop =
+        allShops.find(s=>s.id===shopId);
 
-    document.querySelectorAll(".sidebar input[type=checkbox]").forEach(cb => {
-        cb.addEventListener("change", search);
+    document.getElementById(
+        "modalShopName"
+    ).innerText=shop.name;
+
+    document.getElementById(
+        "modalArea"
+    ).innerText="📍 "+shop.area;
+
+    let html="";
+
+    shop.menus.forEach(menu=>{
+
+        html+=`
+
+        <p>
+
+            🍴 ${menu.name}
+
+            ：💴 ${menu.priceText ?? menu.price+"円"}
+
+        </p>
+
+        `;
+
     });
 
-    document.getElementById("sort").addEventListener("change", search);
+    document.getElementById(
+        "modalMenus"
+    ).innerHTML=html;
+
+    document.getElementById(
+        "modal"
+    ).classList.remove("hidden");
+
 }
 
-// ===== リセット =====
-function reset() {
+// ==========================
+// モーダル閉じる
+// ==========================
 
-    document.getElementById("keyword").value = "";
-    document.getElementById("minPrice").value = "";
-    document.getElementById("maxPrice").value = "";
+function closeModal(){
 
-    document.querySelectorAll(".sidebar input[type=checkbox]").forEach(cb => {
-        cb.checked = false;
-    });
+    document
+        .getElementById("modal")
+        .classList.add("hidden");
 
-    document.getElementById("sort").value = "recommend";
+}
+
+// ==========================
+// リアルタイム検索
+// ==========================
+
+function setupLiveSearch(){
+
+    document
+        .getElementById("keyword")
+        .addEventListener("input",search);
+
+    document
+        .getElementById("minPrice")
+        .addEventListener("input",search);
+
+    document
+        .getElementById("maxPrice")
+        .addEventListener("input",search);
+
+    document
+        .querySelectorAll(
+            ".sidebar input[type=checkbox]"
+        )
+        .forEach(cb=>{
+
+            cb.addEventListener(
+                "change",
+                search
+            );
+
+        });
+
+    document
+        .getElementById("sort")
+        .addEventListener("change",search);
+
+}
+
+// ==========================
+// リセット
+// ==========================
+
+function reset(){
+
+    document
+        .getElementById("keyword")
+        .value="";
+
+    document
+        .getElementById("minPrice")
+        .value="";
+
+    document
+        .getElementById("maxPrice")
+        .value="";
+
+    document
+        .querySelectorAll(
+            ".sidebar input[type=checkbox]"
+        )
+        .forEach(cb=>{
+
+            cb.checked=false;
+
+        });
+
+    document
+        .getElementById("sort")
+        .value="recommend";
 
     render(allData);
 
 }
 
-// ===== 簡易パスワード =====
-function checkPass() {
-    
-    const pass = document.getElementById("pass").value;
+// ==========================
+// パスワード認証
+// ==========================
 
-    if (pass === "belluna20260804") {
+function checkPass(){
 
-        document.getElementById("login").style.display = "none";
-        document.getElementById("app").style.display = "block";
+    const pass =
+        document.getElementById("pass").value;
 
-    } else {
+    // 好きなパスワードに変更してください
+    if(pass==="belluna20260804"){
+
+        document.getElementById("login").style.display="none";
+
+        document.getElementById("app").style.display="block";
+
+    }
+
+    else{
 
         alert("パスワードが違います");
-        
+
     }
 
 }
+
+// ==========================
+// スマホメニュー
+// ==========================
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const sidebar =
+        document.querySelector(".sidebar");
+
+    if(menuButton && sidebar){
+
+        menuButton.addEventListener("click",function(){
+
+            sidebar.classList.toggle("open");
+
+        });
+
+    }
+
+});
