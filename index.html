@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ベルーナドーム グルメ検索</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+    <!-- タイトル -->
+
+    <header>
+
+        <h1>
+            ベルーナドーム グルメ検索2026 (アルコール⇒A)
+            </div>
+        </h1>
+
+    </header>
+
+    <!-- メイン画面 -->
+
+    <main class="container">
+
+        <!-- 左側 -->
+
+        <aside class="sidebar">
+
+    <h2>検索条件</h2>
+
+    <!-- キーワード -->
+    <div class="box">
+        <label>🔍 キーワード</label><br>
+        <input type="text" id="keyword" placeholder="店名・メニュー名">
+    </div>
+
+    <hr>
+
+    <!-- エリア -->
+    <div class="box">
+        <label>📍 エリア</label><br>
+
+        <label><input type="checkbox" value="1塁側"> 1塁側</label><br>
+        <label><input type="checkbox" value="3塁側"> 3塁側</label><br>
+        <label><input type="checkbox" value="外周"> 外周</label><br>
+        <label><input type="checkbox" value="駅前"> 駅前</label><br>
+    </div>
+
+    <hr>
+
+    <!-- 価格 -->
+    <div class="box">
+        <label>💴 価格</label><br>
+
+        <input type="number" id="minPrice" placeholder="最低価格">
+        〜
+        <input type="number" id="maxPrice" placeholder="最高価格">
+    </div>
+
+    <hr>
+
+    <!-- 並び替え -->
+    <div class="box">
+        <label>↕️ 並び替え</label><br>
+
+        <select id="sort">
+            <option value="low">安い順</option>
+            <option value="high">高い順</option>
+        </select>
+    </div>
+
+    <hr>
+
+    <!-- ボタン -->
+    <div class="box">
+        
+        <button id="searchBtn">🔎 検索</button>
+        <button id="resetBtn">🔄 リセット</button>
+
+    </div>
+
+        </aside>
+
+        <!-- 右側 -->
+
+        <section class="content">
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+<!-- 店舗詳細モーダル -->
+<div id="modal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <span id="closeModal" class="close">×</span>
+
+        <h2 id="modalShopName"></h2>
+
+        <p id="modalArea"></p>
+
+        <hr>
+
+        <h3>メニュー</h3>
+
+        <div id="modalMenus"></div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

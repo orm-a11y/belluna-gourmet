@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #f4f6f9;
+    color: #333;
+}
+
+/* ヘッダー */
+header {
+    background: #004b8d;
+    color: white;
+    padding: 15px 20px;
+}
+
+/* 全体レイアウト */
+.container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+/* 左側 */
+.sidebar {
+    width: 300px;
+    background: white;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+}
+
+/* 右側 */
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+
+     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+/* 入力系 */
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* チェックボックス */
+.sidebar label {
+    font-size: 14px;
+}
+
+/* ボタン */
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#searchBtn {
+    background: #0074d9;
+    color: white;
+}
+
+#resetBtn {
+    background: #ccc;
+}
+
+/* 検索結果カード */
+.card h3 {
+    margin: 0 0 5px 0;
+}
+
+.price {
+    font-weight: bold;
+    color: #0074d9;
+}
+
+/* ===== カード強化 ===== */
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: 0.2s;
+}
+
+/* ホバーで浮く */
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* 価格強調 */
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0074d9;
+}
+
+/* ===== モーダル背景 ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 非表示 */
+.hidden {
+    display: none;
+}
+
+/* 中身 */
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 400px;
+    border-radius: 10px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* 閉じるボタン */
+.close {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
