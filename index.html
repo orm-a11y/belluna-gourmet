@@ -17,6 +17,25 @@
 
 <body>
 
+<div id="login">
+
+    <h2>ベルーナドーム グルメ検索</h2>
+
+    <p>パスワードを入力してください</p>
+
+    <input
+        type="password"
+        id="pass"
+        placeholder="パスワード">
+
+    <button onclick="checkPass()">
+        ログイン
+    </button>
+
+</div>
+
+<div id="app" style="display:none;">
+
     <!-- タイトル -->
 
     <header>
@@ -54,6 +73,7 @@
         <label><input type="checkbox" value="3塁側"> 3塁側</label><br>
         <label><input type="checkbox" value="外周"> 外周</label><br>
         <label><input type="checkbox" value="駅前"> 駅前</label><br>
+        <label><input type="checkbox" value="ネット裏"> ネット裏</label><br>
     </div>
 
     <hr>
