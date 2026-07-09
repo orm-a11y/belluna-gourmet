@@ -1,178 +1,363 @@
-body {
-    margin: 0;
-    font-family: sans-serif;
-    background: #f4f6f9;
-    color: #333;
+/* ===========================
+   共通
+=========================== */
+
+*{
+    box-sizing:border-box;
 }
 
-/* ヘッダー */
-    background: #004b8d;
-    color: white;
-    padding: 15px 20px;
+body{
+    margin:0;
+    font-family:"Yu Gothic","Meiryo",sans-serif;
+    background:#f4f6f9;
+    color:#333;
 }
 
-/* 全体レイアウト */
-.container {
-    display: flex;
-    height: calc(100vh - 70px);
+/* ===========================
+   ヘッダー
+=========================== */
+
+header{
+    background:#004b8d;
+    color:white;
+    padding:20px 30px;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
 }
 
-/* 左側 */
-.sidebar {
-    width: 300px;
-    background: white;
-    padding: 20px;
+header h1{
+    margin:0;
+    font-size:32px;
+}
+
+/* ===========================
+   レイアウト
+=========================== */
+
+.container{
+
+    display:grid;
+
+    grid-template-columns:320px 1fr;
+
+    gap:30px;
+
+    max-width:1800px;
+
+    margin:30px auto;
+
+    padding:0 20px;
+
+    overflow: hidden;
+
+}
+
+/* ===========================
+   左メニュー
+=========================== */
+
+.sidebar{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
     overflow-y: auto;
-    border-right: 1px solid #ddd;
-}
 
-/* 右側 */
-.content {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-
-     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 15px;
-}
-
-/* 入力系 */
-input, select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    box-sizing: border-box;
-}
-
-/* チェックボックス */
-.sidebar label {
-    font-size: 14px;
-}
-
-/* ボタン */
-button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-#searchBtn {
-    background: #0074d9;
-    color: white;
-}
-
-#resetBtn {
-    background: #ccc;
-}
-
-/* 検索結果カード */
-.card h3 {
-    margin: 0 0 5px 0;
-}
-
-.price {
-    font-weight: bold;
-    color: #0074d9;
-}
-
-/* ===== カード強化 ===== */
-.card {
-    background: white;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: 0.2s;
-}
-
-/* ホバーで浮く */
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-}
-
-/* 価格強調 */
-.price {
-    font-size: 18px;
-    font-weight: bold;
-    color: #0074d9;
-}
-
-/* ===== モーダル背景 ===== */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* 非表示 */
-.hidden {
-    display: none;
-}
-
-/* 中身 */
-.modal-content {
-    background: white;
-    padding: 20px;
-    width: 400px;
-    border-radius: 10px;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-/* 閉じるボタン */
-.close {
-    float: right;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* ===== ログイン画面 ===== */
-
-#login {
-
-    width: 350px;
-
-    margin: 100px auto;
-
-    background: white;
-
-    padding: 30px;
-
-    border-radius: 15px;
-
-    text-align: center;
-
-    box-shadow: 0 0 20px rgba(0,0,0,.15);
+    height:fit-content;
 
 }
 
-#login h2{
+.sidebar h2{
 
     margin-top:0;
 
 }
 
-#login input{
+.box{
 
-    margin-top:15px;
+    margin-bottom:20px;
 
 }
 
-#login button{
+input,
+select{
 
-    margin-top:20px;
+    width:100%;
+
+    padding:10px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    margin-top:5px;
+
+}
+
+.sidebar label{
+
+    font-size:14px;
+
+}
+
+/* ===========================
+   ボタン
+=========================== */
+
+button{
+
+    width:100%;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:12px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+#searchBtn{
+
+    background:#0074d9;
+
+    color:white;
+
+}
+
+#resetBtn{
+
+    background:#ddd;
+
+}
+
+/* ===========================
+   検索結果
+=========================== */
+
+.content{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+
+    gap:20px;
+
+    overflow-x: auto;
+
+    height: 100%;
+
+    padding-right: 10px;
+
+}
+
+.card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.2s;
+
+    cursor:pointer;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+
+}
+
+.card h3{
+
+    margin-top:0;
+
+}
+
+.price{
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    color:#0074d9;
+
+}
+
+/* ===========================
+   モーダル
+=========================== */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.5);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.modal-content{
+
+    background:white;
+
+    width:450px;
+
+    max-height:80vh;
+
+    overflow:auto;
+
+    padding:25px;
+
+    border-radius:15px;
+
+}
+
+.close{
+
+    float:right;
+
+    font-size:28px;
+
+    cursor:pointer;
+
+}
+
+/* ===========================
+   ログイン
+=========================== */
+
+#login{
+
+    width:400px;
+
+    margin:80px auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.15);
+
+}
+
+/* ===========================
+   スマホボタン
+=========================== */
+
+#menuButton{
+
+    display:none;
+
+}
+
+/* ===========================
+   スマホ
+=========================== */
+
+@media (max-width:768px){
+
+header{
+
+    padding:15px;
+
+}
+
+header h1{
+
+    font-size:22px;
+
+    text-align:center;
+
+}
+
+.container{
+
+    display:block;
+
+    margin:20px auto;
+
+}
+
+#menuButton{
+
+    display:block;
+
+    width:calc(100% - 40px);
+
+    margin:20px;
+
+    background:#004b8d;
+
+    color:white;
+
+}
+
+.sidebar{
+
+    display:none;
+
+    position:static;
+
+    margin:0 20px 20px;
+
+}
+
+.sidebar.open{
+
+    display:block;
+
+}
+
+.content{
+
+    grid-template-columns:1fr;
+
+    padding:20px;
+
+}
+
+.modal-content{
+
+    width:90%;
+
+}
+
+#login{
+
+    width:90%;
+
+}
 
 }
