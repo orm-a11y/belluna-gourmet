@@ -139,3 +139,41 @@ button {
     font-size: 24px;
     cursor: pointer;
 }
+
+/* ===== ログイン画面 ===== */
+
+#login {
+
+    width: 350px;
+
+    margin: 100px auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    box-shadow: 0 0 20px rgba(0,0,0,.15);
+
+}
+
+#login h2{
+
+    margin-top:0;
+
+}
+
+#login input{
+
+    margin-top:15px;
+
+}
+
+#login button{
+
+    margin-top:20px;
+
+}
