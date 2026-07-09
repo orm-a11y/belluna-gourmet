@@ -2,20 +2,21 @@
 <html lang="ja">
 
 <head>
-    
-    <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>ベルーナドーム グルメ検索</title>
 
-    <link rel="stylesheet"
-          href="style.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
+
+<!-- ===========================
+     ログイン画面
+=========================== -->
 
 <div id="login">
 
@@ -28,23 +29,35 @@
         id="pass"
         placeholder="パスワード">
 
-    <button onclick="checkPass()">ログイン</button>
+    <button onclick="checkPass()">
+        ログイン
+    </button>
 
 </div>
 
+<!-- ===========================
+     アプリ本体
+=========================== -->
+
 <div id="app" style="display:none;">
 
-    <!-- タイトル -->
+    <!-- ヘッダー -->
 
     <header>
 
         <h1>
-            ベルーナドーム グルメ検索2026 (アルコール⇒A)
+            ベルーナドーム グルメ検索2026（アルコール⇒A）
         </h1>
 
     </header>
 
-    <!-- メイン画面 -->
+    <!-- スマホ用検索ボタン -->
+
+    <button id="menuButton">
+        ☰ 検索条件
+    </button>
+
+    <!-- メイン -->
 
     <main class="container">
 
@@ -52,63 +65,104 @@
 
         <aside class="sidebar">
 
-    <h2>検索条件</h2>
+            <h2>検索条件</h2>
 
-    <!-- キーワード -->
-    <div class="box">
-        <label>🔍 キーワード</label><br>
-        <input type="text" id="keyword" placeholder="店名・メニュー名">
-    </div>
+            <!-- キーワード -->
 
-    <hr>
+            <div class="box">
 
-    <!-- エリア -->
-    <div class="box">
-        <label>📍 エリア</label><br>
+                <label>🔍 キーワード</label>
 
-        <label><input type="checkbox" value="1塁側"> 1塁側</label><br>
-        <label><input type="checkbox" value="3塁側"> 3塁側</label><br>
-        <label><input type="checkbox" value="外周"> 外周</label><br>
-        <label><input type="checkbox" value="駅前"> 駅前</label><br>
-        <label><input type="checkbox" value="ネット裏"> ネット裏</label><br>
-    </div>
+                <input
+                    type="text"
+                    id="keyword"
+                    placeholder="店名・メニュー名">
 
-    <hr>
+            </div>
 
-    <!-- 価格 -->
-    <div class="box">
-        <label>💴 価格</label><br>
+            <hr>
 
-        <input type="number" id="minPrice" placeholder="最低価格">
-        〜
-        <input type="number" id="maxPrice" placeholder="最高価格">
-    </div>
+            <!-- エリア -->
 
-    <hr>
+            <div class="box">
 
-    <!-- 並び替え -->
-    <div class="box">
-        <label>↕️ 並び替え</label><br>
+                <label>📍 エリア</label><br><br>
 
-        <select id="sort">
-            <option value="low">安い順</option>
-            <option value="high">高い順</option>
-        </select>
-    </div>
+                <label><input type="checkbox" value="1塁側"> 1塁側</label><br>
 
-    <hr>
+                <label><input type="checkbox" value="3塁側"> 3塁側</label><br>
 
-    <!-- ボタン -->
-    <div class="box">
-        
-        <button id="searchBtn">🔎 検索</button>
-        <button id="resetBtn">🔄 リセット</button>
+                <label><input type="checkbox" value="外周"> 外周</label><br>
 
-    </div>
+                <label><input type="checkbox" value="駅前"> 駅前</label><br>
+
+                <label><input type="checkbox" value="ネット裏"> ネット裏</label>
+
+            </div>
+
+            <hr>
+
+            <!-- 価格 -->
+
+            <div class="box">
+
+                <label>💴 価格</label>
+
+                <input
+                    type="number"
+                    id="minPrice"
+                    placeholder="最低価格">
+
+                ～
+
+                <input
+                    type="number"
+                    id="maxPrice"
+                    placeholder="最高価格">
+
+            </div>
+
+            <hr>
+
+            <!-- 並び替え -->
+
+            <div class="box">
+
+                <label>↕️ 並び替え</label>
+
+                <select id="sort">
+
+                    <option value="low">安い順</option>
+
+                    <option value="high">高い順</option>
+
+                </select>
+
+            </div>
+
+            <hr>
+
+            <!-- ボタン -->
+
+            <div class="box">
+
+                <button id="searchBtn">
+
+                    🔎 検索
+
+                </button>
+
+                <button id="resetBtn">
+
+                    🔄 リセット
+
+                </button>
+
+            </div>
 
         </aside>
 
-        <!-- 右側 -->
+        <!-- 検索結果 -->
 
         <section class="content">
 
@@ -116,14 +170,23 @@
 
     </main>
 
-    <script src="script.js"></script>
+</div>
 
-<!-- 店舗詳細モーダル -->
+<!-- ===========================
+     モーダル
+=========================== -->
+
 <div id="modal" class="modal hidden">
 
     <div class="modal-content">
 
-        <span id="closeModal" class="close">×</span>
+        <span
+            id="closeModal"
+            class="close">
+
+            ×
+
+        </span>
 
         <h2 id="modalShopName"></h2>
 
@@ -139,7 +202,7 @@
 
 </div>
 
-</div>
+<script src="script.js"></script>
 
 </body>
 
