@@ -181,4 +181,22 @@ function reset() {
     document.getElementById("sort").value = "recommend";
 
     render(allData);
+
+// ===== 簡易パスワード =====
+function checkPass() {
+
+    const pass = document.getElementById("pass").value;
+
+    if (pass === "belluna20260804") {
+
+        document.getElementById("login").style.display = "none";
+        document.getElementById("app").style.display = "block";
+
+    } else {
+
+        alert("パスワードが違います");
+
+    }
+
+}
 }
