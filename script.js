@@ -182,6 +182,8 @@ function reset() {
 
     render(allData);
 
+}
+
 // ===== 簡易パスワード =====
 function checkPass() {
 
@@ -198,5 +200,4 @@ function checkPass() {
 
     }
 
-}
 }
