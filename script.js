@@ -186,7 +186,7 @@ function reset() {
 
 // ===== 簡易パスワード =====
 function checkPass() {
-
+    
     const pass = document.getElementById("pass").value;
 
     if (pass === "belluna20260804") {
