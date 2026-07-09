@@ -197,7 +197,7 @@ function checkPass() {
     } else {
 
         alert("パスワードが違います");
-
+        
     }
 
 }
