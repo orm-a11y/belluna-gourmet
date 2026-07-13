@@ -45,9 +45,6 @@ window.onload = async function(){
 
     document.getElementById("resetBtn").onclick = reset;
 
-    // リアルタイム検索
-    setupLiveSearch();
-
     // モーダル
     document.getElementById("closeModal").onclick = closeModal;
 
@@ -337,43 +334,6 @@ function closeModal(){
     document
         .getElementById("modal")
         .classList.add("hidden");
-
-}
-
-// ==========================
-// リアルタイム検索
-// ==========================
-
-function setupLiveSearch(){
-
-    document
-        .getElementById("keyword")
-        .addEventListener("input",search);
-
-    document
-        .getElementById("minPrice")
-        .addEventListener("input",search);
-
-    document
-        .getElementById("maxPrice")
-        .addEventListener("input",search);
-
-    document
-        .querySelectorAll(
-            ".sidebar input[type=checkbox]"
-        )
-        .forEach(cb=>{
-
-            cb.addEventListener(
-                "change",
-                search
-            );
-
-        });
-
-    document
-        .getElementById("sort")
-        .addEventListener("change",search);
 
 }
 
